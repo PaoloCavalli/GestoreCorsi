@@ -2,6 +2,8 @@ package it.polito.tdp.corsi;
 
 import javafx.application.Application;
 import static javafx.application.Application.launch;
+
+import it.polito.tdp.corsi.model.Model;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,12 +14,19 @@ public class EntryPoint extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml"));
-        
+    	//FXMLLoader
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Scene.fxml"));
+        Parent root = loader.load();
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/Styles.css");
+       
+        //istanza del modello
+        Model model = new Model();
+        //riferimento al controller
+        FXMLController controller = loader.getController();
+        //associamo il modello
+        controller.setModel(model);
         
-        stage.setTitle("JavaFX and Maven");
+        stage.setTitle("Gestore Corsi");
         stage.setScene(scene);
         stage.show();
     }
